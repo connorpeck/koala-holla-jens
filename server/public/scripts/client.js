@@ -1,3 +1,4 @@
+
 console.log( 'js' );
 
 $( document ).ready( function(){
@@ -6,6 +7,8 @@ $( document ).ready( function(){
   setupClickListeners()
   // load existing koalas on page load
   getKoalas();
+$( '#viewKoalas').on( 'click', '.markReadyButton', markReady);
+$( '#viewKoalas').on( 'click', '.deleteButton', deleteKoala);
 
 }); // end doc ready
 
@@ -32,7 +35,7 @@ function getKoalas(){
   // ajax call to server to get koalas
   $.ajax({
     method: 'GET',
-    url: '/koalas'
+    url: '/koala.router'
   }).then ( function (response){
     console.log('back from GET' , response);
     let el = $('#viewKoalas');
@@ -41,9 +44,13 @@ function getKoalas(){
       el.append( `<tr> <td>${response[i].name} </td> 
       <td>${response[i].age} </td> 
       <td>${response[i].gender} </td>
-      <td>${response[i].readyForTransfer} </td>
-      <td>${response[i].notes} </td>
-      </tr>` );
+      <td>${response[i].readyForTransfer} 
+      <button class="markReadyButton" data-id= "${response[i].id}">Ready For Transfer </button>
+      <button class="deleteButton" data-id= "${response[i].id}">Delete </button>
+      </td>
+      <td>${response[i].notes} </td> 
+      </tr>
+      <button>Sell </button>` );
     } // end loop
   }).catch ( function (err){
     console.log(err);
@@ -52,8 +59,29 @@ function getKoalas(){
   
 } // end getKoalas
 
+// ajax call to server to get koalas
 function saveKoala( newKoala ){
-  console.log( 'in saveKoala', newKoala );
-  // ajax call to server to get koalas
- 
+  console.log( 'in saveKoala new info being taken from dom is:', newKoala );
+  $.ajax({
+    method: 'POST',
+    url: '/koala.router',
+    data: newKoala
+  }).then( function( response ){
+    console.log('back from POST', response);
+    getKoalas();
+  }).catch( function (err){
+    console.log(err);
+    alert('error in POST')
+
+  })
+
+}
+
+
+function markReady (){
+  console.log('in markReady id:', $(this).data('id'));
+}
+
+function deleteKoala (){
+  console.log('in deleteKoala id:', $(this).data('id'));
 }
