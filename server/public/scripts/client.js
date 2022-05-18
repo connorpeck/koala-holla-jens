@@ -84,4 +84,14 @@ function markReady (){
 
 function deleteKoala (){
   console.log('in deleteKoala id:', $(this).data('id'));
+  $.ajax({
+    method: 'DELETE',
+    url: `/koala.router?id=${$(this).data('id')}`
+  }).then( function (response){
+    console.log(response);
+    getKoalas();
+  }).catch( function (err){
+    console.log(err);
+    alert('error in delete koala')
+  })
 }
