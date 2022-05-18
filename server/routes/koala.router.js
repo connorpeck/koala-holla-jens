@@ -36,7 +36,18 @@ koalaRouter.post( '/', (req, res)=>{
 
 
 // PUT
+koalaRouter.put('/', ( req, res)=>{
+    console.log('in /koala.router PUT', req.query);
+    let queryString= `UPDATE koalas SET ready_for_transfer = TRUE where id=$1 `;
+    let VALUES = [req.query.id];
+    pool.query( queryString, VALUES).then( (results)=>{
+        res.sendStatus(200);
+    }).catch((err)=>{
+        console.log(err);
+        res.sendStatus(500)
+    })
 
+})
 
 
 
@@ -49,7 +60,7 @@ koalaRouter.delete( '/', ( req,res )=>{
             res.sendStatus(200);
     }).catch((err)=>{
         console.log(err);
-        res.send(500);
+        res.sendStatus (500);
     })
         
 })

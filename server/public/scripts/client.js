@@ -9,6 +9,7 @@ $( document ).ready( function(){
   getKoalas();
 $( '#viewKoalas').on( 'click', '.markReadyButton', markReady);
 $( '#viewKoalas').on( 'click', '.deleteButton', deleteKoala);
+$( '#addButton').on( 'click', clearInputs);
 
 }); // end doc ready
 
@@ -30,6 +31,16 @@ function setupClickListeners() {
   }); 
 }
 
+function clearInputs(){
+  console.log('in clearInputs ');
+  $( '#nameIn' ).val('')
+  $( '#ageIn' ).val('')
+  $( '#genderIn' ).val('')
+  $( '#readyForTransferIn' ).val('')
+  $( '#notesIn' ).val('')
+
+}// end clear inputs
+
 function getKoalas(){
   console.log( 'in getKoalas' );
   // ajax call to server to get koalas
@@ -44,11 +55,12 @@ function getKoalas(){
       el.append( `<tr> <td>${response[i].name} </td> 
       <td>${response[i].age} </td> 
       <td>${response[i].gender} </td>
-      <td>${response[i].readyForTransfer} 
+      <td>${response[i].ready_for_transfer} 
       <button class="markReadyButton" data-id= "${response[i].id}">Ready For Transfer </button>
-      <button class="deleteButton" data-id= "${response[i].id}">Delete </button>
       </td>
-      <td>${response[i].notes} </td> 
+      <td>${response[i].notes} <button class="deleteButton" 
+      data-id= "${response[i].id}">Delete </button>
+      </td> 
       </tr>
       <button>Sell </button>` );
     } // end loop
@@ -80,6 +92,15 @@ function saveKoala( newKoala ){
 
 function markReady (){
   console.log('in markReady id:', $(this).data('id'));
+  $.ajax({
+    method: 'PUT',
+    url: `/koala.router?id=${$(this).data('id')}`
+  }).then( function (response){
+    console.log(response);
+  }).catch( function (err){
+    console.log(err);
+    alert('error in markReady');
+  })
 }
 
 function deleteKoala (){
