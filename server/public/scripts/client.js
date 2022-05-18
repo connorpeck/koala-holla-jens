@@ -52,17 +52,16 @@ function getKoalas(){
     let el = $('#viewKoalas');
     el.empty();
     for (let i=0; i<response.length; i++){
-      el.append( `<tr> <td>${response[i].name} </td> 
+      el.append( `<tr><td>${response[i].name} </td> 
       <td>${response[i].age} </td> 
       <td>${response[i].gender} </td>
-      <td>${response[i].ready_for_transfer} 
-      <button class="markReadyButton" data-id= "${response[i].id}">Ready For Transfer </button>
-      </td>
-      <td>${response[i].notes} <button class="deleteButton" 
+      <td>${response[i].ready_for_transfer}</td> 
+      <td>${response[i].notes} <button class="markReadyButton" d
+      ata-id= "${response[i].id}">Ready For Transfer </button>
+      <button class="deleteButton" 
       data-id= "${response[i].id}">Delete </button>
       </td> 
-      </tr>
-      <button>Sell </button>` );
+      </tr>` );
     } // end loop
   }).catch ( function (err){
     console.log(err);

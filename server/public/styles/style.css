@@ -1,0 +1,41 @@
+table, th,td {
+    border: 2px solid rgb(82, 91, 68);
+    border-collapse: collapse;
+}
+
+body {
+    background-color: rgb(95, 138, 109);
+}
+
+thead {
+    background-color: bisque;
+}
+
+th, td {
+    padding: 15px;
+}
+
+input {
+    text-align: center;
+}
+
+img {
+    opacity: 65%;
+    text-align: center;
+}
+
+.icon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+
+tbody > tr:nth-child(even) {
+    background-color: cadetblue;
+}
+
+tbody > tr:nth-child(odd) {
+    background-color: rgb(179, 207, 208);
+}
