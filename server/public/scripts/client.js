@@ -55,9 +55,9 @@ function getKoalas(){
       el.append( `<tr><td>${response[i].name} </td> 
       <td>${response[i].age} </td> 
       <td>${response[i].gender} </td>
-      <td>${response[i].ready_for_transfer}</td> 
-      <td>${response[i].notes} <button class="markReadyButton" d
-      ata-id= "${response[i].id}">Ready For Transfer </button>
+      <td>${response[i].ready_for_transfer} <button class="markReadyButton" d
+      ata-id= "${response[i].id}">Ready For Transfer </button></td> 
+      <td>${response[i].notes} 
       <button class="deleteButton" 
       data-id= "${response[i].id}">Delete </button>
       </td> 
@@ -96,6 +96,7 @@ function markReady (){
     url: `/koala.router?id=${$(this).data('id')}`
   }).then( function (response){
     console.log(response);
+    getKoalas();
   }).catch( function (err){
     console.log(err);
     alert('error in markReady');

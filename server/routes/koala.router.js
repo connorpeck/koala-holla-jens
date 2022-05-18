@@ -38,7 +38,7 @@ koalaRouter.post( '/', (req, res)=>{
 // PUT
 koalaRouter.put('/', ( req, res)=>{
     console.log('in /koala.router PUT', req.query);
-    let queryString= `UPDATE koalas SET ready_for_transfer = TRUE where id=$1 `;
+    let queryString= `UPDATE koalas SET ready_for_transfer = FALSE WHERE id=$1; `;
     let VALUES = [req.query.id];
     pool.query( queryString, VALUES).then( (results)=>{
         res.sendStatus(200);

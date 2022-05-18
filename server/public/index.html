@@ -10,16 +10,17 @@
   <body>
     <header>
       <img src="images/icon.png" class="icon" />
+      <img src="images/steve.jpeg" class="steve" />
       <h1>Koala Holla</h1>
       <h3>1976 Llama Comma Drive</h2>
       <h3>Walla Walla, WA</h2>
     </header>
-    <section id="addKoala">
+    <section id="addKoala" class="koalaImg">
       <h2>Add Koala</h2>
       <input type="text" id="nameIn" value="" placeholder="Name">
       <input type="text" id="ageIn" value="" placeholder="Age">
       <input type="text" id="genderIn" value="" placeholder="Gender">
-      <input type="text" id="readyForTransferIn" value="" placeholder="Transfer">
+      <input type="boolean" id="readyForTransferIn" value="" placeholder="Transfer">
       <input type="text" id="notesIn" value="" placeholder="Notes">
       <button type="button" id="addButton">Add Koala</button>
     </section>
@@ -35,7 +36,7 @@
             <th>Notes</th>
           </tr>
         </thead>
-        <tbody id="viewKoalas">
+        <tbody id="viewKoalas" class="center">
         </tbody>
       </table>
     </section>
