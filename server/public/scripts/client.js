@@ -8,6 +8,7 @@ $( document ).ready( function(){
   // load existing koalas on page load
   getKoalas();
 $( '#viewKoalas').on( 'click', '.markReadyButton', markReady);
+$( '#viewKoalas').on( 'click', '.markNotReadyButton', markNotReady);
 $( '#viewKoalas').on( 'click', '.deleteButton', deleteKoala);
 $( '#addButton').on( 'click', clearInputs);
 
@@ -49,20 +50,28 @@ function getKoalas(){
     url: '/koala.router'
   }).then ( function (response){
     console.log('back from GET' , response);
+    // let showButton = ''
     let el = $('#viewKoalas');
     el.empty();
     for (let i=0; i<response.length; i++){
+      
+    // let showButton = `data-id= "${response[i].id}`
+    // if (response[i].ready_for_transfer === false){
+    //     } // end iff
+        
       el.append( `<tr><td>${response[i].name} </td> 
       <td>${response[i].age} </td> 
       <td>${response[i].gender} </td>
-      <td>${response[i].ready_for_transfer} <button class="markReadyButton" d
-      ata-id= "${response[i].id}">Ready For Transfer </button></td> 
+      <td>${response[i].ready_for_transfer} <button class="markReadyButton" 
+      data-id= "${response[i].id}">Mark Ready </button> 
+      </td> 
       <td>${response[i].notes} 
       <button class="deleteButton" 
       data-id= "${response[i].id}">Delete </button>
       </td> 
       </tr>` );
-    } // end loop
+    
+  } // end loop
   }).catch ( function (err){
     console.log(err);
     alert ('err in get');
@@ -86,7 +95,7 @@ function saveKoala( newKoala ){
 
   })
 
-}
+}// end saveKoala
 
 
 function markReady (){
@@ -101,7 +110,21 @@ function markReady (){
     console.log(err);
     alert('error in markReady');
   })
-}
+} // end markReady
+
+function markNotReady (){
+  console.log('in markNotReady id:', $(this).data('id'));
+  $.ajax({
+    method: 'PUT',
+    url: `/koala.router?id=${$(this).data('id')}`
+  }).then( function (response){
+    console.log(response);
+    getKoalas();
+  }).catch( function (err){
+    console.log(err);
+    alert('error in markNotReady');
+  })
+} // end markReady
 
 function deleteKoala (){
   console.log('in deleteKoala id:', $(this).data('id'));
@@ -115,4 +138,4 @@ function deleteKoala (){
     console.log(err);
     alert('error in delete koala')
   })
-}
+} // end deleteKoala
